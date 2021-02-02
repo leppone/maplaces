@@ -1,6 +1,18 @@
 const express = require('express');
 const cors = require('cors');
+const { Pool } = require('pg');
+
 const app = express();
+const PORT = process.env.PORT || 5000;
+const DB_URL = process.env.DATABASE_URL;
+
+const pool = new Pool({
+  connectionString: DB_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
 
 app.use(express.json());
 // Cors for enabling unmatching origins
@@ -21,6 +33,21 @@ app.get('/', (req, res) => {
   // Sort results by score before returning
   const hello = "hello world"
   res.json(hello);
+})
+
+
+app.get('/db', async (req, res) => {
+  try {
+    console.log(DB_URL);
+    const client = await pool.connect();
+    const result = await client.query('SELECT * FROM places_test');
+    const results = { 'results': (result) ? result.rows : null};
+    res.render('pages/db', results );
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
 })
 
 
@@ -104,11 +131,5 @@ app.post('/api/scoreboard', (req, res) => {
   res.json(item);
 })
 
-
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 8000;
-}
-
-app.listen(port);
-console.log(`Server running on port ${port}`);
+app.listen(PORT);
+console.log(`Server running on port ${PORT}`);
