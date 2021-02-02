@@ -2,10 +2,19 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-
 app.use(express.json());
 // Cors for enabling unmatching origins
 app.use(cors());
+
+
+// DB
+const { Pool } = require('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 
 // Generate ID for item by scoreboard length
@@ -16,6 +25,20 @@ const generateId = () => {
     : 0;
   return maxId + 1;
 }
+
+
+app.get('/db', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT * FROM places_test');
+    const results = { 'results': (result) ? result.rows : null};
+    res.render('pages/db', results );
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
 
 
 // GET all items sorted by score
