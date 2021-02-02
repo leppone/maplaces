@@ -3,7 +3,7 @@ const cors = require('cors');
 const { Pool } = require('pg');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 const DB_URL = process.env.DATABASE_URL;
 
 const pool = new Pool({
@@ -38,11 +38,10 @@ app.get('/', (req, res) => {
 
 app.get('/db', async (req, res) => {
   try {
-    console.log(DB_URL);
     const client = await pool.connect();
     const result = await client.query('SELECT * FROM places_test');
     const results = { 'results': (result) ? result.rows : null};
-    res.render('pages/db', results );
+    res.json(results);
     client.release();
   } catch (err) {
     console.error(err);
