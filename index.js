@@ -20,31 +20,21 @@ app.use(express.json());
 app.use(cors());
 
 
-// Generate ID for item by scoreboard length
-const generateId = () => {
-  let scoreboard = db.get('scoreboard').value();
-  const maxId = scoreboard.length > 0
-    ? Math.max(...scoreboard.map(item => item.id))
-    : 0;
-  return maxId + 1;
-}
-
-
 // GET index html page
 app.get('/', (req, res) => {
   // Sort results by score before returning
   const hello = "hello world"
   res.json(hello);
-})
+});
 
 
 // GET all items
 app.get('/api/places', async (req, res) => {
-  console.log('GET /api/places called')
+  console.log('GET /api/places called');
 
   try {
     const client = await pool.connect();
-    const result = await client.query(`SELECT * FROM ${table_name}`);
+    const result = await client.query(`SELECT * FROM ${table_name} ;`);
     const results = { 'results': (result) ? result.rows : null};
     res.json(results);
     client.release();
@@ -53,12 +43,60 @@ app.get('/api/places', async (req, res) => {
     console.error(err);
     res.send(`Error ${err}`);
   }
-})
+});
 
+
+// GET item using id
+app.get('/api/places/:id', async (req, res) => {
+  console.log('GET /api/places/<id> called');
+
+  try {
+    const id = req.params.id;
+    const client = await pool.connect();
+    const result = await client.query(`SELECT * FROM ${table_name} WHERE id = ${id};`);
+    const results = { 'results': (result) ? result.rows : null};
+    res.json(results);
+    client.release();
+  } 
+  catch (err) {
+    console.error(err);
+    res.send(`Error ${err}`);
+  }
+});
+
+
+// PUT modified item
+app.put('/api/places/:id', async (req, res) => {
+  console.log('PUT /api/places/<id> called');
+
+  // Checking all items from request
+  const {title, description, opening_hours, coordinates} = req.body;
+
+  try {
+    const id = req.params.id;
+    const client = await pool.connect();
+    client.query(
+      `UPDATE ${table_name} SET title = '${title}', description = '${description}',
+        opening_hours = '${opening_hours}', coordinates = '${coordinates}' 
+      WHERE id = ${id};`,
+        (error) => {
+          if (error) { throw error; }
+          // If here, return ok
+          res.status(200).json({ status: 'success', message: 'Item updated.' });
+        }
+    )
+
+    client.release();
+  } 
+  catch (err) {
+    console.error(err);
+    res.send(`Error ${err}`);
+  }
+});
 
 // POST item to database
 app.post('/api/places', async (req, res) => {
-  console.log('POST /api/places called')
+  console.log('POST /api/places called');
 
   // Checking all items from request
   const {title, description, opening_hours, coordinates} = req.body;
@@ -71,7 +109,7 @@ app.post('/api/places', async (req, res) => {
     const client = await pool.connect();
     client.query(
       `INSERT INTO ${table_name} (title, description, opening_hours, coordinates) 
-      VALUES ( '${title}', '${description}', '${opening_hours}', '${coordinates}' )`,
+      VALUES ( '${title}', '${description}', '${opening_hours}', '${coordinates}' );`,
       (error) => {
         if (error) { throw error; }
         // If here, return ok
