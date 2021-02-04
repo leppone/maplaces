@@ -27,13 +27,15 @@
                                     <label>From:</label>
                                 </div>
                                 <div class="divtablerowcell">
-                                    <input type="text" id="open_from" name="open_from" maxlength="2" size="2">
+                                    <input onkeyup="nullInputIfUnallowed(this.value, this.id)" 
+                                        type="text" id="open_from" name="open_from" size="2">
                                 </div>
                                 <div class="divtablerowcell">
                                     <label>To:</label>
                                 </div>
                                 <div class="divtablerowcell">
-                                    <input type="text" id="open_to" name="open_to" maxlength="2" size="2">
+                                    <input onkeyup="nullInputIfUnallowed(this.value, this.id)" 
+                                        type="text" id="open_to" name="open_to" size="2">
                                 </div>
                             </div>
                         </div>
@@ -42,7 +44,8 @@
                 </div>
                 <div class="divtablerowcell">
                     <label for="filterTitle">Filter title:</label><br>
-                    <input onkeyup="filterTitle(this.value)" type="text" id="filterTitle" name="filterTitle"></br>
+                    <input onkeyup="buildTableElement(this.value)" type="text" 
+                        id="filterTitle" name="filterTitle"></br>
                 </div>
             </div>
         </div>
@@ -54,7 +57,7 @@
         
         <script src="js/api_handlers.js"></script>
         <script src="js/html_handlers.js"></script>
-        <script src="js/filter_tools.js"></script>
+        <script src="js/input_helpers.js"></script>
         <script>
             window.onload = function() {
                 getPlaces();

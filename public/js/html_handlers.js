@@ -53,8 +53,10 @@ const buildTableElement = (filterTitle = "") => {
             <td><input type="text" id="description${place.id}" value="${place.description}"></td>
             <td><input type="text" id="coordinates${place.id}" value="${place.coordinates}"></td>
             <td class="inline">
-                <input type="text" id="open_from${place.id}" value="${place.open_from}">
-                <input type="text" id="open_to${place.id}" value="${place.open_to}">
+                <input onkeyup="nullInputIfUnallowed(this.value, this.id)" type="text" 
+                    id="open_from${place.id}" value="${place.open_from}">
+                <input onkeyup="nullInputIfUnallowed(this.value, this.id)" type="text" 
+                    id="open_to${place.id}" value="${place.open_to}">
             </td>
             <td class="inline">
                 <button onClick="updatePlace('${place.id}')">Save</button>
