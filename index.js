@@ -1,8 +1,13 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const { Pool } = require('pg');
 
+// Init express app with public folder
 const app = express();
+app.use(express.static('public'))
+
+
 const PORT = process.env.PORT;
 const DB_URL = process.env.DATABASE_URL;
 const table_name = 'places_test';
@@ -23,8 +28,7 @@ app.use(cors());
 // GET index html page
 app.get('/', (req, res) => {
   // Sort results by score before returning
-  const hello = "hello world"
-  res.json(hello);
+  res.sendFile(path.resolve('./public/index.html'));
 });
 
 
