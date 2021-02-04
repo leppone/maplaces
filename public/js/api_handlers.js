@@ -7,20 +7,11 @@ const getPlaces = async () => {
 
     let requestOptions = createRequestFor('GET');
     const response = await fetch(API_URL + 'places', requestOptions);
-
-    if (response.status === 200) {
-        const data = await response.json();
-        const places = data.results;
-
-        //Add places to the table
-        buildHtmlElement(places);
-    } else {
-        const div = document.createElement('div');
-        const message = `Something went wrong with your request (${response.status})`;
-        div.innerHTML = message;
-        document.body.appendChild(div);
-    }
-
+    const data = await getDataFromResponse(response);
+    
+    //Add places (results) to the table
+    if(data != null)
+        buildHtmlElement(data.results);
 };
 
 //Update selected item
@@ -38,18 +29,11 @@ const updatePlace = async (id) => {
 
     // Send PUT request to api and wait for response
     const response = await fetch(API_URL + `places/${id}`, requestOptions);
-    if (response.status === 200) {
-        const data = await response.json();
-        console.log(data);
+    const data = await getDataFromResponse(response);
+    console.log(data);
 
-        // Refresh table
-        getPlaces();
-    } else {
-        const div = document.createElement('div');
-        const message = `Something went wrong with your request (${response.status})`;
-        div.innerHTML = message;
-        document.body.appendChild(div);
-    }
+    // Refresh table
+    getPlaces();
 };
 
 
@@ -61,22 +45,15 @@ const deletePlace = async (id) => {
 
     // Send DELETE request to api and wait for response
     const response = await fetch(API_URL + `places/${id}`, requestOptions);
-    if (response.status === 200) {
-        const data = await response.json();
-        console.log(data);
+    const data = await getDataFromResponse(response);
+    console.log(data);
 
-        // Refresh table
-        getPlaces();
-    } else {
-        const div = document.createElement('div');
-        const message = `Something went wrong with your request (${response.status})`;
-        div.innerHTML = message;
-        document.body.appendChild(div);
-    }
+    // Refresh table
+    getPlaces();
 };
 
 
-// Helper function for creating request structure
+// --- Helper function for creating request structure
 const createRequestFor = (type) => {
     let myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -87,4 +64,20 @@ const createRequestFor = (type) => {
     requestOptions.method = type;
 
     return requestOptions;
+};
+
+
+const getDataFromResponse = async (response) => {
+    if (response.status === 200) {
+        const data = await response.json();
+        return data;
+    } else {
+        const div = document.createElement('div');
+        const message = `Something went wrong with your request (${response.status})`;
+        div.innerHTML = message;
+        document.body.appendChild(div);
+        
+        // In case of error, return null
+        return null;
+    }
 };
