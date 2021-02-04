@@ -6,7 +6,6 @@ const buildHtmlElement = (places) => {
     //Add table headers
     placeTable.innerHTML = 
     `<tr>
-        <th>Id</th>
         <th>Title</th>
         <th>Description</th>
         <th>Map coordinates</th>
@@ -19,21 +18,19 @@ const buildHtmlElement = (places) => {
 
         // One row for viewing data
         trView.innerHTML = `
-            <td>${place.id}</td> 
             <td>${place.title}</td>
             <td>${place.description}</td>
             <td>${place.coordinates}</td>
             <td>${place.opening_hours}</td>
-            <td>
+            <td class="inline">
                 <button onClick="editBtnClicked( 'btnDiv${place.id}' ) ">Edit</button>
-                <button onClick="editBtnClicked( 'btnDiv${place.id}' ) ">Delete</button>
+                <button onClick="deletePlace('${place.id}')">Delete</button>
             </td>`;
             
         // One row for editing data (hidden by default)
         const trForm = document.createElement('tr')
         trForm.classList.add(`btnDiv${place.id}`, 'hidden');
         trForm.innerHTML = `
-            <td>${place.id}</td>
             <td><input type="text" id="title${place.id}" value="${place.title}"></td> 
             <td><input type="text" id="description${place.id}" value="${place.description}"></td>
             <td><input type="text" id="coordinates${place.id}" value="${place.coordinates}"></td>

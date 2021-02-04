@@ -6,12 +6,14 @@ const { Pool } = require('pg');
 // Init express app with public folder
 const app = express();
 app.use(express.static('public'))
+app.use(express.json());
+// Cors for enabling unmatching origins
+app.use(cors());
 
-
+// DB variables
 const PORT = process.env.PORT;
 const DB_URL = process.env.DATABASE_URL;
 const table_name = 'places_test';
-
 const pool = new Pool({
   connectionString: DB_URL,
   ssl: {
@@ -20,19 +22,14 @@ const pool = new Pool({
 });
 
 
-app.use(express.json());
-// Cors for enabling unmatching origins
-app.use(cors());
-
-
-// GET index html page
+// --- GET index html page ---
 app.get('/', (req, res) => {
   // Sort results by score before returning
   res.sendFile(path.resolve('./public/index.html'));
 });
 
 
-// GET all items
+// --- GET all items ---
 app.get('/api/places', async (req, res) => {
   console.log('GET /api/places called');
 
@@ -50,7 +47,7 @@ app.get('/api/places', async (req, res) => {
 });
 
 
-// GET item using id
+// --- GET item using id ---
 app.get('/api/places/:id', async (req, res) => {
   console.log('GET /api/places/<id> called');
 
@@ -69,7 +66,7 @@ app.get('/api/places/:id', async (req, res) => {
 });
 
 
-// PUT modified item
+// --- PUT modified item ---
 app.put('/api/places/:id', async (req, res) => {
   console.log('PUT /api/places/<id> called');
 
@@ -106,7 +103,8 @@ app.put('/api/places/:id', async (req, res) => {
   }
 });
 
-// POST item to database
+
+// --- POST item to database ---
 app.post('/api/places', async (req, res) => {
   console.log('POST /api/places called');
 
@@ -135,6 +133,30 @@ app.post('/api/places', async (req, res) => {
     res.send(`Error ${err}`);
   }
 });
+
+
+// --- DELETE selected item ---
+app.delete('/api/places/:id', async (req, res) => {
+  console.log('DELETE /api/places/<id> called');
+
+  try {
+    const id = req.params.id;
+    const client = await pool.connect();
+    client.query(`DELETE FROM ${table_name} WHERE id = ${id};`,
+        (error) => {
+          if (error) { throw error; }
+          // If here, return ok
+          res.status(200).json({ status: 'success', message: 'Item deleted.' });
+        }
+    )
+    client.release();
+  } 
+  catch (err) {
+    console.error(err);
+    res.send(`Error ${err}`);
+  }
+});
+
 
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);

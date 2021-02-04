@@ -21,6 +21,10 @@
     color: white;   
 }
 
+.inline {
+    white-space:nowrap;
+}
+
 .hidden {
     visibility: collapse;
 }
