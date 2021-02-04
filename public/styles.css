@@ -28,3 +28,16 @@
 .hidden {
     visibility: collapse;
 }
+
+.divtable {
+    display: table;
+}
+
+.divtablerow {
+    display: table-row;
+}
+
+.divtablerowcell {
+    display: table-cell;
+    padding: 10px;
+}

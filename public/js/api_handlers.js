@@ -12,7 +12,7 @@ const getPlaces = async () => {
     
     //Add places (results) to the table
     if(data != null)
-        buildHtmlElement(data.results);
+        refreshPlaceContainer(data.results);
 };
 
 

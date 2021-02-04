@@ -1,6 +1,16 @@
 "use strict";
 
-const buildHtmlElement = (places) => {
+let places;
+
+// Refresh places-container when reloaded
+const refreshPlaceContainer = (results) => {
+    places = results;
+    buildTableElement();
+}
+
+// Build places table using places-container
+// parameters: filter keywords for filtering list
+const buildTableElement = (filterTitle = "") => {
     const placeTable = document.getElementById('place-table');
 
     //Add table headers
@@ -12,7 +22,15 @@ const buildHtmlElement = (places) => {
         <th colspan=2>Opening hours</th>
     </tr>`;
 
-    places.forEach((place) => {
+    // Filter based on title
+    let filteredPlaces = places;
+    if(filterTitle) {
+        filteredPlaces = places.filter(
+            place => place.title.toLowerCase().includes(filterTitle.toLowerCase())
+        );
+    }
+
+    filteredPlaces.forEach((place) => {
         const trView = document.createElement('tr')
         trView.classList.add(`btnDiv${place.id}`, 'stripes');
 
@@ -44,6 +62,7 @@ const buildHtmlElement = (places) => {
     });
 }
 
+// Edit/save/undo/delete buttons toggled
 const editBtnClicked = (id) => {
     const switchElements = Array.from(document.getElementsByClassName(id));
     console.log(switchElements)
