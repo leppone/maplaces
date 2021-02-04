@@ -4,6 +4,7 @@ Content-Type: application/json
 {
     "title": "Gotham",
     "description": "Batmans home",
-    "opening_hours": "not open",
+    "open_from": "9",
+    "open_to": "15",
     "coordinates": "?"
 }

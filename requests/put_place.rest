@@ -1,9 +1,10 @@
-PUT http://localhost:5000/api/places/2
+PUT http://localhost:5000/api/places/1
 Content-Type: application/json
 
 {
     "title": "Gotham",
     "description": "Batmans home",
-    "opening_hours": "now opened",
+    "open_from": "7",
+    "open_to": "17",
     "coordinates": "xxx"
 }

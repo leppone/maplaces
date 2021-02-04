@@ -39,7 +39,7 @@ const buildTableElement = (filterTitle = "") => {
             <td>${place.title}</td>
             <td>${place.description}</td>
             <td>${place.coordinates}</td>
-            <td>${place.opening_hours}</td>
+            <td>${place.open_from} - ${place.open_to}</td>
             <td class="inline">
                 <button onClick="editBtnClicked( 'btnDiv${place.id}' ) ">Edit</button>
                 <button onClick="deletePlace('${place.id}')">Delete</button>
@@ -52,8 +52,11 @@ const buildTableElement = (filterTitle = "") => {
             <td><input type="text" id="title${place.id}" value="${place.title}"></td> 
             <td><input type="text" id="description${place.id}" value="${place.description}"></td>
             <td><input type="text" id="coordinates${place.id}" value="${place.coordinates}"></td>
-            <td><input type="text" id="opening_hours${place.id}" value="${place.opening_hours}"></td>
-            <td>
+            <td class="inline">
+                <input type="text" id="open_from${place.id}" value="${place.open_from}">
+                <input type="text" id="open_to${place.id}" value="${place.open_to}">
+            </td>
+            <td class="inline">
                 <button onClick="updatePlace('${place.id}')">Save</button>
                 <button onClick="editBtnClicked( 'btnDiv${place.id}' ) ">Undo</button>
             </td>`;

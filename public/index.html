@@ -20,8 +20,23 @@
                         <input type="text" id="description" name="description"></br>
                         <label for="coordinates">Map coordinates:</label><br>
                         <input type="text" id="coordinates" name="coordinates"></br>
-                        <label for="opening_hours">Opening hours:</label><br>
-                        <input type="text" id="opening_hours" name="opening_hours"></br>
+                        <label> Opening hours:</label><br>
+                        <div class="divtable">
+                            <div class="divtablerow">
+                                <div class="divtablerowcell">
+                                    <label>From:</label>
+                                </div>
+                                <div class="divtablerowcell">
+                                    <input type="text" id="open_from" name="open_from" maxlength="2" size="2">
+                                </div>
+                                <div class="divtablerowcell">
+                                    <label>To:</label>
+                                </div>
+                                <div class="divtablerowcell">
+                                    <input type="text" id="open_to" name="open_to" maxlength="2" size="2">
+                                </div>
+                            </div>
+                        </div>
                     </form>
                     <button onclick="postPlace()">Add place</button>
                 </div>

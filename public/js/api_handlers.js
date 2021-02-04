@@ -49,7 +49,8 @@ const updatePlace = async (id) => {
         title: document.getElementById(`title${id}`).value,
         description: document.getElementById(`description${id}`).value,
         coordinates: document.getElementById(`coordinates${id}`).value, 
-        opening_hours: document.getElementById(`opening_hours${id}`).value 
+        open_from: document.getElementById(`open_from${id}`).value,
+        open_to: document.getElementById(`open_to${id}`).value 
     }
     requestOptions.body = JSON.stringify(nameObject);
 
