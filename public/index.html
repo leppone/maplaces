@@ -9,11 +9,24 @@
     </head>
 
     <body>
-        <div class=>
-            <h2>maPlaces</h2>
-            <table id="place-table" class=""">
-            </table>
+        <h2>maPlaces</h2>
+        <div>
+            <form id="createPlaceForm" name="createPlaceForm">
+                <label for="title">Title:</label><br>
+                <input type="text" id="title" name="title"></br>
+                <label for="description">Description:</label><br>
+                <input type="text" id="description" name="description"></br>
+                <label for="coordinates">Map coordinates:</label><br>
+                <input type="text" id="coordinates" name="coordinates"></br>
+                <label for="opening_hours">Opening hours:</label><br>
+                <input type="text" id="opening_hours" name="opening_hours"></br>
+            </form>
+            <button onclick="postPlace()">Add place</button>
         </div>
+        <div>
+            <table id="place-table"></table>
+        </div>
+        
         <script src="js/api_handlers.js"></script>
         <script src="js/html_handlers.js"></script>
         <script>

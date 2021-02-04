@@ -2,6 +2,7 @@
 
 const API_URL = "http://localhost:5000/api/";
 
+
 //Get a list of places
 const getPlaces = async () => {
 
@@ -13,6 +14,31 @@ const getPlaces = async () => {
     if(data != null)
         buildHtmlElement(data.results);
 };
+
+
+//Update selected item
+const postPlace = async () => {
+
+    // Create request and attach input data
+    let requestOptions = createRequestFor('POST');
+    let formData = new FormData(document.getElementById('createPlaceForm'));
+
+    // Get data from form directly
+    const nameObject = {};
+    for(var pair of formData.entries()) {
+        nameObject[pair[0]] = pair[1];
+    }
+    requestOptions.body = JSON.stringify(nameObject);
+
+    // Send POST request to api and wait for response
+    const response = await fetch(API_URL + `places`, requestOptions);
+    const data = await getDataFromResponse(response);
+    console.log(data);
+
+    // Refresh table
+    getPlaces();
+};
+
 
 //Update selected item
 const updatePlace = async (id) => {
@@ -55,6 +81,7 @@ const deletePlace = async (id) => {
 
 // --- Helper function for creating request structure
 const createRequestFor = (type) => {
+
     let myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -66,9 +93,10 @@ const createRequestFor = (type) => {
     return requestOptions;
 };
 
-
+// --- Helper function for handling fetch response
 const getDataFromResponse = async (response) => {
-    if (response.status === 200) {
+
+    if (response.status === 200 || response.status === 201) {
         const data = await response.json();
         return data;
     } else {
