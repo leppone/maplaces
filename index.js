@@ -76,6 +76,14 @@ app.put('/api/places/:id', async (req, res) => {
   // Checking all items from request
   const {title, description, opening_hours, coordinates} = req.body;
 
+  console.log(`Received data: 
+    { 
+      title: ${title}, 
+      description: ${description}, 
+      coordinates: ${coordinates},
+      opening_hours: ${opening_hours}
+    }`);
+
   try {
     const id = req.params.id;
     const client = await pool.connect();

@@ -9,7 +9,7 @@
     padding: 8px;
 }
 
-#place-table tr:nth-child(even){background-color: #f2f2f2;}
+#place-table tr.stripes:nth-child(even){background-color: #f2f2f2;}
 
 #place-table tr:hover {background-color: #ddd;}
 
@@ -22,5 +22,5 @@
 }
 
 .hidden {
-    display: none;
+    visibility: collapse;
 }

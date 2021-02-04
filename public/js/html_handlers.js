@@ -15,7 +15,9 @@ const buildHtmlElement = (places) => {
 
     places.forEach((place) => {
         const trView = document.createElement('tr')
-        trView.classList.add(`btnDiv${place.id}`);
+        trView.classList.add(`btnDiv${place.id}`, 'stripes');
+
+        // One row for viewing data
         trView.innerHTML = `
             <td>${place.id}</td> 
             <td>${place.title}</td>
@@ -27,20 +29,19 @@ const buildHtmlElement = (places) => {
                 <button onClick="editBtnClicked( 'btnDiv${place.id}' ) ">Delete</button>
             </td>`;
             
+        // One row for editing data (hidden by default)
         const trForm = document.createElement('tr')
         trForm.classList.add(`btnDiv${place.id}`, 'hidden');
         trForm.innerHTML = `
-        <form>
             <td>${place.id}</td>
-            <td><input type="text" id="${place.id}" name="title" value="${place.title}"></td> 
-            <td><input type="text" id="${place.id}" name="description" value="${place.description}"></td>
-            <td><input type="text" id="${place.id}" name="coordinates" value="${place.coordinates}"></td>
-            <td><input type="text" id="${place.id}" name="opening_hours" value="${place.opening_hours}"></td>
+            <td><input type="text" id="title${place.id}" value="${place.title}"></td> 
+            <td><input type="text" id="description${place.id}" value="${place.description}"></td>
+            <td><input type="text" id="coordinates${place.id}" value="${place.coordinates}"></td>
+            <td><input type="text" id="opening_hours${place.id}" value="${place.opening_hours}"></td>
             <td>
-                <button onClick="editBtnClicked( 'btnDiv${place.id}' ) ">Save</button>
+                <button onClick="updatePlace('${place.id}')">Save</button>
                 <button onClick="editBtnClicked( 'btnDiv${place.id}' ) ">Undo</button>
-            </td>
-        </form>`;
+            </td>`;
         placeTable.appendChild(trView);
         placeTable.appendChild(trForm);
     });
