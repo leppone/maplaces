@@ -21,3 +21,18 @@ const nullInputIfUnallowed = (input, id) => {
         document.getElementById(id).value = "";
     }
 }
+
+// Edit/save/undo/delete buttons toggled
+const editBtnClicked = (id) => {
+    const switchElements = Array.from(document.getElementsByClassName(id));
+    switchElements.forEach((elem) => {
+        elem.classList.toggle("hidden");
+    })
+};
+
+// Alert whem delete clicked
+const deleteBtnClicked = (id, title) => {
+    if( confirm(`Really delete ${title}?`) ) {
+        deletePlace(id);
+    }
+}

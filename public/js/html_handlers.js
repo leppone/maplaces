@@ -53,7 +53,7 @@ const buildTableElement = (filterTitle = "", filterTime = "" ) => {
             <td>${place.open_from} - ${place.open_to}</td>
             <td class="inline">
                 <button onClick="editBtnClicked( 'btnDiv${place.id}' ) ">Edit</button>
-                <button onClick="deletePlace('${place.id}')">Delete</button>
+                <button onClick="deleteBtnClicked('${place.id}', '${place.title}')">Delete</button>
             </td>`;
             
         // One row for editing data (hidden by default)
@@ -77,11 +77,3 @@ const buildTableElement = (filterTitle = "", filterTime = "" ) => {
         placeTable.appendChild(trForm);
     });
 }
-
-// Edit/save/undo/delete buttons toggled
-const editBtnClicked = (id) => {
-    const switchElements = Array.from(document.getElementsByClassName(id));
-    switchElements.forEach((elem) => {
-        elem.classList.toggle("hidden");
-    })
-};
