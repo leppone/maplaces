@@ -44,8 +44,12 @@
                 </div>
                 <div class="divtablerowcell">
                     <label for="filterTitle">Filter title:</label><br>
-                    <input onkeyup="buildTableElement(this.value)" type="text" 
+                    <input onkeyup="filterTitle(this.value)" type="text" 
                         id="filterTitle" name="filterTitle"></br>
+                    <br/>
+                    <label for="filterTime">Show places open at (time 0-24):</label><br>
+                    <input onkeyup="filterTime(this.value)" type="text" 
+                        id="filterTime" name="filterTime"></br>
                 </div>
             </div>
         </div>

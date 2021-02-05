@@ -10,7 +10,7 @@ const refreshPlaceContainer = (results) => {
 
 // Build places table using places-container
 // parameters: filter keywords for filtering list
-const buildTableElement = (filterTitle = "") => {
+const buildTableElement = (filterTitle = "", filterTime = "" ) => {
     const placeTable = document.getElementById('place-table');
 
     //Add table headers
@@ -22,13 +22,24 @@ const buildTableElement = (filterTitle = "") => {
         <th colspan=2>Opening hours</th>
     </tr>`;
 
-    // Filter based on title
-    let filteredPlaces = places;
-    if(filterTitle) {
-        filteredPlaces = places.filter(
-            place => place.title.toLowerCase().includes(filterTitle.toLowerCase())
-        );
-    }
+    // Filtering logic
+    const filteredPlaces = places.filter( place => 
+        // Filter criteria #1: filterTitle included
+        place.title.toLowerCase().includes(filterTitle.toLowerCase()) &&
+        // Filter criteria #2: filterTime exists and is between open timefrmame
+        ( filterTime === "" ? 
+            true // Pass all if time not set
+            :
+            // Checking if given time between "from" and "to"
+            ( Number(place.open_from) < Number(place.open_to) ?  
+                Number(place.open_from) <= Number(filterTime) &&  
+                Number(filterTime) < Number(place.open_to) 
+                :
+                Number(place.open_from) <= Number(filterTime) ||
+                Number(filterTime) < Number(place.open_to)
+            )
+        )   
+    );
 
     filteredPlaces.forEach((place) => {
         const trView = document.createElement('tr')
@@ -70,7 +81,6 @@ const buildTableElement = (filterTitle = "") => {
 // Edit/save/undo/delete buttons toggled
 const editBtnClicked = (id) => {
     const switchElements = Array.from(document.getElementsByClassName(id));
-    console.log(switchElements)
     switchElements.forEach((elem) => {
         elem.classList.toggle("hidden");
     })
