@@ -1,13 +1,13 @@
 "use strict";
 
-const API_URL = "http://localhost:5000/api/";
+const API_URL = "/api";
 
 
-//Get a list of places
+//Get a list of §
 const getPlaces = async () => {
 
     let requestOptions = createRequestFor('GET');
-    const response = await fetch(API_URL + 'places', requestOptions);
+    const response = await fetch(API_URL + '/places', requestOptions);
     const data = await getDataFromResponse(response);
     
     //Add places (results) to the table
@@ -31,7 +31,7 @@ const postPlace = async () => {
     requestOptions.body = JSON.stringify(nameObject);
 
     // Send POST request to api and wait for response
-    const response = await fetch(API_URL + `places`, requestOptions);
+    const response = await fetch(API_URL + `/places`, requestOptions);
     const data = await getDataFromResponse(response);
     console.log(data);
 
@@ -55,7 +55,7 @@ const updatePlace = async (id) => {
     requestOptions.body = JSON.stringify(nameObject);
 
     // Send PUT request to api and wait for response
-    const response = await fetch(API_URL + `places/${id}`, requestOptions);
+    const response = await fetch(API_URL + `/places/${id}`, requestOptions);
     const data = await getDataFromResponse(response);
     console.log(data);
 
@@ -71,7 +71,7 @@ const deletePlace = async (id) => {
     let requestOptions = createRequestFor('DELETE');
 
     // Send DELETE request to api and wait for response
-    const response = await fetch(API_URL + `places/${id}`, requestOptions);
+    const response = await fetch(API_URL + `/places/${id}`, requestOptions);
     const data = await getDataFromResponse(response);
     console.log(data);
 
