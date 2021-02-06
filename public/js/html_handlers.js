@@ -63,9 +63,9 @@ const buildTableElement = (filterTitle = "", filterTime = "" ) => {
             <td><input type="text" id="title${place.id}" value="${place.title}"></td> 
             <td><input type="text" id="description${place.id}" value="${place.description}"></td>
             <td class="inline">
-                <input onkeyup="validateFloatValue(this.value, this.id)" type="text" 
+                <input onchange="validateFloatValue(this.value, this.id)" type="text" 
                     id="lat${place.id}" value="${place.lat}">
-                <input onkeyup="validateFloatValue(this.value, this.id)" type="text" 
+                <input onchange="validateFloatValue(this.value, this.id)" type="text" 
                     id="lng${place.id}" value="${place.lng}">
             </td>
             <td class="inline">
