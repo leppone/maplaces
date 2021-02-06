@@ -16,11 +16,20 @@ const filterTitle = (input) => {
 }
 
 // Null input field if value time is not <24
-const nullInputIfUnallowed = (input, id) => {
+const validateDayTimeHour = (input, id) => {
     if(isNaN(input) || input > 24) {
         document.getElementById(id).value = "";
     }
 }
+
+
+// Null input field if value is not float
+const validateFloatValue = (input, id) => {
+    if(isNaN(input) || input % 1 === 0) {
+        document.getElementById(id).value = "";
+    }
+}
+
 
 // Edit/save/undo/delete buttons toggled
 const editBtnClicked = (id) => {

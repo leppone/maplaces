@@ -56,22 +56,22 @@ const buildTableElement = (filterTitle = "", filterTime = "" ) => {
                 <button onClick="deleteBtnClicked('${place.id}', '${place.title}')">Delete</button>
             </td>`;
             
-        // One row for editing data (hidden by default)
+        // One row for editing data (hidden by defauflt)
         const trForm = document.createElement('tr')
         trForm.classList.add(`btnDiv${place.id}`, 'hidden');
         trForm.innerHTML = `
             <td><input type="text" id="title${place.id}" value="${place.title}"></td> 
             <td><input type="text" id="description${place.id}" value="${place.description}"></td>
             <td class="inline">
-                <input onkeyup="" type="text" 
+                <input onkeyup="validateFloatValue(this.value, this.id)" type="text" 
                     id="lat${place.id}" value="${place.lat}">
-                <input onkeyup="" type="text" 
+                <input onkeyup="validateFloatValue(this.value, this.id)" type="text" 
                     id="lng${place.id}" value="${place.lng}">
             </td>
             <td class="inline">
-                <input onkeyup="nullInputIfUnallowed(this.value, this.id)" type="text" 
+                <input onkeyup="validateDayTimeHour(this.value, this.id)" type="text" 
                     id="open_from${place.id}" value="${place.open_from}">
-                <input onkeyup="nullInputIfUnallowed(this.value, this.id)" type="text" 
+                <input onkeyup="validateDayTimeHour(this.value, this.id)" type="text" 
                     id="open_to${place.id}" value="${place.open_to}">
             </td>
             <td class="inline">
