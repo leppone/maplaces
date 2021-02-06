@@ -18,20 +18,35 @@
                         <input type="text" id="title" name="title"></br>
                         <label for="description">Description:</label><br>
                         <input type="text" id="description" name="description"></br>
-                        <label for="coordinates">Map coordinates:</label><br>
-                        <input type="text" id="coordinates" name="coordinates"></br>
+                        <label> Map coordinates:</label><br>
+                        <div class="divtable">
+                            <div class="divtablerow">
+                                <div class="divtablerowcell">
+                                    <label for="lat">Lat:</label><br>
+                                </div>
+                                <div class="divtablerowcell">
+                                    <input type="text" id="lat" name="lat" size="2"></br>
+                                </div>
+                                <div class="divtablerowcell">
+                                    <label for="lng">Long:</label><br>
+                                </div>
+                                <div class="divtablerowcell">
+                                    <input type="text" id="lng" name="lng" size="2"></br>
+                                </div>
+                            </div>
+                        </div>
                         <label> Opening hours:</label><br>
                         <div class="divtable">
                             <div class="divtablerow">
                                 <div class="divtablerowcell">
-                                    <label>From:</label>
+                                    <label for="open_from">From:</label>
                                 </div>
                                 <div class="divtablerowcell">
                                     <input onkeyup="nullInputIfUnallowed(this.value, this.id)" 
                                         type="text" id="open_from" name="open_from" size="2">
                                 </div>
                                 <div class="divtablerowcell">
-                                    <label>To:</label>
+                                    <label for="open_to">To:</label>
                                 </div>
                                 <div class="divtablerowcell">
                                     <input onkeyup="nullInputIfUnallowed(this.value, this.id)" 

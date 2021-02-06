@@ -71,13 +71,14 @@ app.put('/api/places/:id', async (req, res) => {
   console.log('PUT /api/places/<id> called');
 
   // Checking all items from request
-  const {title, description, open_from, open_to, coordinates} = req.body;
+  const {title, description, open_from, open_to, lat, lng} = req.body;
 
   console.log(`Received data: 
     { 
       title: ${title}, 
       description: ${description}, 
-      coordinates: ${coordinates},
+      lat: '${lat}', 
+      lng: '${lng}',
       open_from: ${open_from},
       open_to: ${open_to}
     }`);
@@ -87,7 +88,7 @@ app.put('/api/places/:id', async (req, res) => {
     const client = await pool.connect();
     client.query(
       `UPDATE ${table_name} SET title = '${title}', description = '${description}',
-        open_from = '${open_from}', open_to = '${open_to}', coordinates = '${coordinates}' 
+        open_from = '${open_from}', open_to = '${open_to}', lat = '${lat}', lng = '${lng}'
       WHERE id = ${id};`,
         (error) => {
           if (error) { throw error; }
@@ -110,7 +111,7 @@ app.post('/api/places', async (req, res) => {
   console.log('POST /api/places called');
 
   // Checking all items from request
-  const {title, description, open_from, open_to, coordinates} = req.body;
+  const {title, description, open_from, open_to, lat, lng} = req.body;
   if (!title) {
     return res.status(400).json({ error: 'Title required' })
   }
@@ -119,8 +120,8 @@ app.post('/api/places', async (req, res) => {
   try{
     const client = await pool.connect();
     client.query(
-      `INSERT INTO ${table_name} (title, description, open_from, open_to, coordinates) 
-      VALUES ( '${title}', '${description}', '${open_from}', '${open_to}', '${coordinates}' );`,
+      `INSERT INTO ${table_name} (title, description, open_from, open_to, lat, lng) 
+      VALUES ( '${title}', '${description}', '${open_from}', '${open_to}', '${lat}', '${lng}' );`,
       (error) => {
         if (error) { throw error; }
         // If here, return ok

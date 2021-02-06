@@ -2,9 +2,10 @@ POST http://localhost:5000/api/places
 Content-Type: application/json
 
 {
-    "title": "Gotham",
-    "description": "Batmans home",
+    "title": "Ainola",
+    "description": "Turistikohde",
     "open_from": "9",
     "open_to": "15",
-    "coordinates": "?"
+    "lat": "60.455319470716816",
+    "lng": "25.0867132310072"
 }

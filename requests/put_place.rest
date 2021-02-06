@@ -2,9 +2,10 @@ PUT http://localhost:5000/api/places/1
 Content-Type: application/json
 
 {
-    "title": "Gotham",
-    "description": "Batmans home",
-    "open_from": "7",
-    "open_to": "17",
-    "coordinates": "xxx"
+    "title": "Ainola Järvenpää",
+    "description": "Sibben koti",
+    "open_from": "8",
+    "open_to": "16",
+    "lat": "60.455319470716816",
+    "lng": "25.0867132310072"
 }

@@ -49,7 +49,7 @@ const buildTableElement = (filterTitle = "", filterTime = "" ) => {
         trView.innerHTML = `
             <td>${place.title}</td>
             <td>${place.description}</td>
-            <td>${place.coordinates}</td>
+            <td>${place.lat} : ${place.lng}</td>
             <td>${place.open_from} - ${place.open_to}</td>
             <td class="inline">
                 <button onClick="editBtnClicked( 'btnDiv${place.id}' ) ">Edit</button>
@@ -62,7 +62,12 @@ const buildTableElement = (filterTitle = "", filterTime = "" ) => {
         trForm.innerHTML = `
             <td><input type="text" id="title${place.id}" value="${place.title}"></td> 
             <td><input type="text" id="description${place.id}" value="${place.description}"></td>
-            <td><input type="text" id="coordinates${place.id}" value="${place.coordinates}"></td>
+            <td class="inline">
+                <input onkeyup="" type="text" 
+                    id="lat${place.id}" value="${place.lat}">
+                <input onkeyup="" type="text" 
+                    id="lng${place.id}" value="${place.lng}">
+            </td>
             <td class="inline">
                 <input onkeyup="nullInputIfUnallowed(this.value, this.id)" type="text" 
                     id="open_from${place.id}" value="${place.open_from}">

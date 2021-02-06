@@ -33,9 +33,8 @@ const postPlace = async () => {
     // Send POST request to api and wait for response
     const response = await fetch(API_URL + `/places`, requestOptions);
     const data = await getDataFromResponse(response);
-    console.log(data);
 
-    // Refresh table
+    // Refresh table        
     getPlaces();
 };
 
@@ -48,7 +47,8 @@ const updatePlace = async (id) => {
     const nameObject = { 
         title: document.getElementById(`title${id}`).value,
         description: document.getElementById(`description${id}`).value,
-        coordinates: document.getElementById(`coordinates${id}`).value, 
+        lat: document.getElementById(`lat${id}`).value, 
+        lng: document.getElementById(`lng${id}`).value, 
         open_from: document.getElementById(`open_from${id}`).value,
         open_to: document.getElementById(`open_to${id}`).value 
     }
@@ -57,7 +57,6 @@ const updatePlace = async (id) => {
     // Send PUT request to api and wait for response
     const response = await fetch(API_URL + `/places/${id}`, requestOptions);
     const data = await getDataFromResponse(response);
-    console.log(data);
 
     // Refresh table
     getPlaces();
@@ -73,7 +72,6 @@ const deletePlace = async (id) => {
     // Send DELETE request to api and wait for response
     const response = await fetch(API_URL + `/places/${id}`, requestOptions);
     const data = await getDataFromResponse(response);
-    console.log(data);
 
     // Refresh table
     getPlaces();
